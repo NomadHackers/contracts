@@ -45,4 +45,24 @@ contract WikipediaTest is Test {
         assertEq(wikipedia.getArticleTitle(2), "Test2");
         assertEq(wikipedia.getArticleImageHash(2), bytes32(0));
     }
+
+    function test_getLastId() public {
+        test_Add();
+        assertEq(wikipedia.counter(), 1);
+    }
+
+    function test_getLastArticles() public {
+        for (uint256 i = 0; i < 10; i++) {
+            wikipedia.addNewArticle(
+                bytes32(0),
+                bytes32(0),
+                bytes32(0),
+                "Test x"
+            );
+        }
+        Wikipedia.Article[] memory articles = wikipedia.getLastArticles(10);
+        for (uint256 i = 0; i < 10; i++) {
+            assertEq(articles[i].id, 10 - i);
+        }
+    }
 }

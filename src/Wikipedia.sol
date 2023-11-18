@@ -66,6 +66,14 @@ contract Wikipedia {
         return articlesById[id].title;
     }
 
+    function getLastArticles(uint256 n) public view returns (Article[] memory) {
+        Article[] memory articles = new Article[](10);
+        for (uint256 i = 0; i < 10; i++) {
+            articles[i] = articlesById[counter - i];
+        }
+        return articles;
+    }
+
     // function editArticle(uint256 id, address author, bytes32 newIpfsHash) public {
     //     Article memory article = Article(id, author, previousVersion, ipfsHash);
     //     articlesByTitle[title] = article;
